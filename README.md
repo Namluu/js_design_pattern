@@ -182,3 +182,34 @@ alert(person2.friends); //Trung, Mai, Van
 
 > person1 friends add new. Because the friends array exists on Person.prototype, not on person1, 
 so the changes made are also reflected on person2.friends (which points to the same array)
+
+## The Hybrid pattern
+The most common way is combine the constructor and prototype
+```php
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = ["Me", "Lee"];
+}
+Person.prototype = {
+    constructor: Person,
+    sayName: function () {
+        alert(this.name);
+    }
+};
+var person1 = new Person("Tom", 25, "Developer");
+var person2 = new Person("Nam", 25, "Doctor");
+
+person1.friends.push("Van");
+
+alert(person1.friends); //Me, Lee, Van
+alert(person2.friends); //Me, Lee
+```
+Instances share constructor and the sayName() method on prototype
+Instances have their own properties: name, age, friends
+
+## Conclusion
+The hybrid constructor/prototype pattern is the most widely used and accepted practice for defining 
+custom reference types in ECMAScript. Generally speaking, this is the default pattern to use for 
+defining reference types.
