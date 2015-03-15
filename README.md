@@ -108,3 +108,77 @@ function sayName() {
 > All person instances now share the sayName() function that is defined in the global scope.
 But this makes no longer nicely grouped in the code.
 
+## The prototype pattern
+```php
+function Person() {
+}
+Person.prototype.name = "Nam";
+Person.prototype.age = 25;
+Person.prototype.job = "Developer";
+Person.prototype.sayName = function() {
+    alert(this.name);
+};
+
+var person1 = new Person();
+person1.sayName();
+```
+Each function is created with a prototype property, which is an object containing properties and methods that should be available to instances of a particular reference type.
+The benefit of using the prototype is that all of its properties and methods are shared among object instances.
+
+If you add a property to an instance that has the same name as a property on the prototype, you create the property on the instance.
+```php
+var person1 = new Person();
+var person2 = new Person();
+
+person1.name = "Tom";
+alert(person1.name);	//Tom
+alert(person2.name);
+```
+
+**Prototype and object literal**
+```php
+function Person(){
+}
+Person.prototype = {
+    constructor: Person,
+    name : "Nicholas",
+    age : 29,
+    job : "Software Engineer",
+    sayName : function () {
+        alert(this.name);
+    }
+};
+```
+
+If we don’t point the constructor to Person, the constructor will point to Object
+```php
+alert(friend instanceof Object); //true
+alert(friend instanceof Person); //true
+alert(friend.constructor == Person); //false
+alert(friend.constructor == Object); //true
+```
+
+The real problem occurs when a property contains a reference value
+```php
+function Person(){
+}
+Person.prototype = {
+    constructor: Person,
+    name : "Nicholas",
+    age : 29,
+    job : "Software Engineer",
+    friends: ["Trung", "Mai"],
+    sayName : function () {
+        alert(this.name);
+    }
+};
+var person1 = new Person();
+var person2 = new Person();
+
+person1.friends.push("Van");
+
+alert(person2.friends); //Trung, Mai, Van
+```
+
+> person1 friends add new. Because the friends array exists on Person.prototype, not on person1, 
+so the changes made are also reflected on person2.friends (which points to the same array)
