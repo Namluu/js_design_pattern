@@ -1,7 +1,5 @@
 # JavaScript design pattern
-
 -------------------------------------
-
 - Create object
 - The factory pattern
 - The constructor pattern
@@ -9,7 +7,7 @@
 - The Hybrid pattern
 
 ## Create object
-** Object constructor **
+**Object constructor**
 ```php
 var person = new Object();
 person.name = "Nam";
@@ -20,7 +18,7 @@ person.sayName = function() {
     console.log(this.name);
 }
 ```
-** Object literal **
+**Object literal**
 ```php
 var person = {
     name: "Nam",
@@ -34,8 +32,9 @@ var person = {
 ```
 Object literals became the preferred pattern for creating such objects
 > Creating multiple objects with the same interface requires a lot of code duplication
-> ex: create a person “Nam”, create a person “Trung” is copy person object…
-> To solve this problem, developers began using the factory pattern
+ex: create a person “Nam”, create a person “Trung” is copy person object…
+To solve this problem, developers began using the factory pattern
+
 ## The factory pattern
 With no way to define classes in ECMAScript, developers created functions as a specific interfaces
 ```php
@@ -57,4 +56,4 @@ var person1 = createPerson("Nam", 25, "Developer");
 var person2 = createPerson("Tom", 15, "Doctor");
 ```
 > The factory pattern didn’t address the issue of object identification (what type of object an object is)
-> a new pattern emerged
+a new pattern emerged
